@@ -33,7 +33,7 @@ public class Users implements java.io.Serializable {
 	@Column(name = "email", nullable = false)
 	private String email;
 	
-//	@Convert(converter = PasswordEncryptor.class)
+	@Convert(converter = PasswordEncryptor.class)
 	@Column(name = "password", nullable = false)
 	private String password;
 	
