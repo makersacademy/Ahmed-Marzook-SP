@@ -4,7 +4,7 @@ plugins {
 	id 'java'
 }
 
-group = 'com.quix.webbiskoolsltd'
+group = 'com.quiz.webbiskoolsltd'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
