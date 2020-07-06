@@ -1,22 +1,31 @@
-version: '3.1'
-services:
-#   web:
-#     build: ./quiz-manager-frontend/
-#     ports:
-#         - 4200:4200
-#     depends_on:
-#         - "app"
-  app:
+version: '3.5'
+services: #Defineing Services
+  web: # Angular Frontend
+    build: ./quiz-manager-frontend/
+    volumes: # Volume binding
+        - './quiz-manager-frontend:/usr/src/app'
+    container_name: quiz_management_frontend
+    ports:
+        - 4200:4200
+    command: > 
+        bash -c "npm install && ng serve --host 0.0.0.0 --port 4200"
+    depends_on:
+        - "app"
+    networks:
+        - quiz_app_network
+  app: # Java Springboot Backend
     build: ./quiz-managment-backend/
+    container_name: quiz_management_backend
     ports:
         - 8085:8085
     depends_on:
         - "db"
     networks:
-        - quiz_management_network
-  db:
+        - quiz_db_network
+        - quiz_app_network
+  db: # PostgreSQL Database
     image: postgres:alpine
-    container_name: postgresDatabase
+    container_name: quiz_management_db
     environment: 
         POSTGRES_USER: 'unicorn_user'
         POSTGRES_PASSWORD: 'magical_password'
@@ -27,8 +36,9 @@ services:
     ports:
         - 5433:5432
     networks:
-        - quiz_management_network
+        - quiz_db_network
 volumes:
     db-data:
 networks:
-   quiz_management_network:
+   quiz_db_network:
+   quiz_app_network:
