@@ -1,11 +1,15 @@
 package com.quiz.webbiskoolsltd.pgdb;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.quiz.webbiskoolsltd.pgdb.converters.PasswordEncryptor;
@@ -21,7 +25,7 @@ public class Users implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "user_id")
+	@Column(name = "user_id", unique = true, nullable = false)
 	private Integer userId;
 	
 	@Column(name = "first_name", nullable = false)
@@ -37,26 +41,20 @@ public class Users implements java.io.Serializable {
 	@Column(name = "password", nullable = false)
 	private String password;
 	
-	@Column(name = "view", nullable = false)
-	private Boolean view;
-	
-	@Column(name = "edit", nullable = false)
-	private Boolean edit;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
+	private Set<Role> roles;
 	
 	public Users() {
 		super();
 	}
 
-	public Users(int userId, String firstName, String lastName, String email, String password, Boolean view,
-			Boolean edit) {
+	public Users(int userId, String firstName, String lastName, String email, String password) {
 		super();
 		this.userId = userId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
-		this.view = view;
-		this.edit = edit;
 	}
 
 	public int getUserId() {
@@ -99,20 +97,11 @@ public class Users implements java.io.Serializable {
 		this.password = password;
 	}
 
-	public Boolean getView() {
-		return view;
+	public Set<Role> getRoles() {
+		return roles;
 	}
 
-	public void setView(Boolean view) {
-		this.view = view;
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
-
-	public Boolean getEdit() {
-		return edit;
-	}
-
-	public void setEdit(Boolean edit) {
-		this.edit = edit;
-	}
-
 }
