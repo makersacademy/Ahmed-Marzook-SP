@@ -126,6 +126,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "quiz-manager-frontend"
+    }
+  },
+  "defaultProject": "quiz-manager-frontend",
+  "cli": {
+    "analytics": false
+  }
 }
