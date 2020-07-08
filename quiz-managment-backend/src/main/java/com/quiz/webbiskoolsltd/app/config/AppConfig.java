@@ -33,7 +33,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
-		http.httpBasic().and().authorizeRequests().antMatchers("/rest/**").permitAll().and().authorizeRequests()
+		http.httpBasic().and().authorizeRequests().antMatchers("/rest/**", "/message/").permitAll().and().authorizeRequests()
 				.antMatchers("/secure/**").hasAnyRole("ADMIN").anyRequest().authenticated().and().formLogin()
 				.permitAll();
 	}

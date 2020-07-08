@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.quiz.webbiskoolsltd.pgdb.Role;
 import com.quiz.webbiskoolsltd.pgdb.Users;
 import com.quiz.webbiskoolsltd.repository.IRolesDao;
 import com.quiz.webbiskoolsltd.repository.IUserDao;
@@ -34,10 +33,6 @@ public class AdminController {
 		String encryptPwd = passwordEncoder.encode(pwd);
 		user.setPassword(encryptPwd);
 		userDao.save(user);
-		Role role = new Role();
-		role.setRole("ADMIN");
-		role.setUsers(user);
-		rolesDao.save(role);
 		return "User added Succesfully...";
 		
 	}

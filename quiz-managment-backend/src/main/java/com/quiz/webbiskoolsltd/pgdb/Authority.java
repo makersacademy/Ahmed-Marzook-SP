@@ -2,19 +2,16 @@ package com.quiz.webbiskoolsltd.pgdb;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
-@Table(name = "roles", schema = "public")
+@Table(name = "authority", schema = "public")
 @Entity()
-public class Role implements java.io.Serializable {
+public class Authority implements java.io.Serializable {
 	
 	/**
 	 * 
@@ -26,39 +23,33 @@ public class Role implements java.io.Serializable {
 	        name = "sequence",
 	        strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
 	        parameters = {
-	                @Parameter(name = "sequence_name", value = "roles_seq"),
+	                @Parameter(name = "sequence_name", value = "authority_seq"),
 	                @Parameter(name = "increment_size", value = "1")
 	        }
 	)
 	@GeneratedValue(generator = "sequence")
-	@Column(name = "role_id", unique = true, nullable = false)
-	private Integer roleId;
+	@Column(name = "authority_id", unique = true, nullable = false)
+	private Integer authorityId;
 	
 	@Column(name = "role", nullable = false)
-	private String role;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private Users users;
-	
+	private String role;	
 
-	public Role() {
+	public Authority() {
 		super();
 	}
 
-	public Role(Integer roleId, String roles, Users users) {
+	public Authority(Integer roleId, String roles) {
 		super();
-		this.roleId = roleId;
+		this.authorityId = roleId;
 		this.role = roles;
-		this.users = users;
 	}
 
-	public Integer getRoleId() {
-		return roleId;
+	public Integer getAuthorityId() {
+		return authorityId;
 	}
 
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
+	public void setAuthorityId(Integer authorityId) {
+		this.authorityId = authorityId;
 	}
 
 	public String getRole() {
@@ -68,13 +59,4 @@ public class Role implements java.io.Serializable {
 	public void setRole(String role) {
 		this.role = role;
 	}
-
-	public Users getUsers() {
-		return users;
-	}
-
-	public void setUsers(Users users) {
-		this.users = users;
-	}
-	
 }

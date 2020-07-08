@@ -1,14 +1,17 @@
 package com.quiz.webbiskoolsltd.pgdb;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -17,41 +20,36 @@ import org.hibernate.annotations.Parameter;
 @Table(name = "users", schema = "public")
 @Entity()
 public class Users implements java.io.Serializable {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GenericGenerator(
-	        name = "sequence",
-	        strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-	        parameters = {
-	                @Parameter(name = "sequence_name", value = "users_seq"),
-	                @Parameter(name = "increment_size", value = "1")
-	        }
-	)
+	@GenericGenerator(name = "sequence", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
+			@Parameter(name = "sequence_name", value = "users_seq"), @Parameter(name = "increment_size", value = "1") })
 	@GeneratedValue(generator = "sequence")
 	@Column(name = "user_id", unique = true, nullable = false)
 	private Integer userId;
-	
+
 	@Column(name = "first_name", nullable = false)
 	private String firstName;
-	
+
 	@Column(name = "last_name", nullable = false)
 	private String lastName;
-	
-	@Column(name = "email", nullable = false)
+
+	@Column(name = "email", nullable = false, unique = true)
 	private String email;
-	
-//	@Convert(converter = PasswordEncryptor.class)
+
 	@Column(name = "password", nullable = false)
 	private String password;
-	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="users")
-	private List<Role> roles = new ArrayList<Role>();
-	
+
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "user_authority", joinColumns = { @JoinColumn(name = "user_authority_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "user_id") })
+	private Set<Authority> roles = new HashSet<>();
+
 	public Users() {
 		super();
 	}
@@ -105,11 +103,12 @@ public class Users implements java.io.Serializable {
 		this.password = password;
 	}
 
-	public List<Role> getRoles() {
+	public Set<Authority> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<Role> roles) {
+	public void setRoles(Set<Authority> roles) {
 		this.roles = roles;
 	}
+
 }
