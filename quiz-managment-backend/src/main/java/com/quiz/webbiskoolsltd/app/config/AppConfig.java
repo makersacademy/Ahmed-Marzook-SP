@@ -11,31 +11,29 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.quiz.webbiskoolsltd.services.QuizUserDetailsService;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class AppConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	private UserDetailsService userDetailsService;
-
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(encodePWD());
-	}
-
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-//		http.csrf().disable();
-//		http.authorizeRequests().anyRequest().fullyAuthenticated().and().httpBasic();
-//	}
-
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable();
-		http.httpBasic().and().authorizeRequests().antMatchers("/rest/**", "/message/").permitAll().and().authorizeRequests()
-				.antMatchers("/secure/**").hasAnyRole("ADMIN").anyRequest().authenticated().and().formLogin()
-				.permitAll();
+		http.authorizeRequests().antMatchers("/info/**").hasAnyRole("ADMIN","USER").
+		and().formLogin();
+	}
+	
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		  auth.inMemoryAuthentication().withUser("email1@gmail.com").password("ram123").roles("ADMIN");
+		  auth.inMemoryAuthentication().withUser("email2@gmail.com").password("ravan123").roles("USER");
+		  auth.inMemoryAuthentication().withUser("email3@gmail.com").password("kans123").roles("VIEW_USER");
+	}
+
+	@Bean
+	public UserDetailsService userDetailsService() {
+		return new QuizUserDetailsService();
 	}
 
 	@Bean
