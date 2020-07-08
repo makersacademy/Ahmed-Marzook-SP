@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.quiz.webbiskoolsltd.pgdb.Users;
 import com.quiz.webbiskoolsltd.repository.IUserDao;
@@ -22,8 +21,18 @@ public class QuizUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		Users user = userDao.findByEmail(username);
+		QuizUserDetails userDetails = null;
+		if(user!=null) {
+			userDetails = new QuizUserDetails();
+			userDetails.setUser(user);
+		}else {
+			throw new UsernameNotFoundException("User not found with email :" + username);
+		}
+		
+		log.info("loadUserByUsername() : {}", username);
+		
+		return userDetails;
 	}
 	
 	

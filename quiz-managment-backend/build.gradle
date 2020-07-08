@@ -26,6 +26,10 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok:1.18.12'
 	testCompileOnly 'org.projectlombok:lombok:1.18.12'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+//	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
+//	compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.4'
+//	compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.4'
+//	compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-jaxb-annotations', version: '2.9.4'
 }
 
 test {
