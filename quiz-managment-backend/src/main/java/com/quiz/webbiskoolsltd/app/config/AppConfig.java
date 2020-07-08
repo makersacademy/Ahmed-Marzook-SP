@@ -4,37 +4,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.quiz.webbiskoolsltd.services.QuizUserDetailsService;
 
 @Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class AppConfig extends WebSecurityConfigurerAdapter {
+
+	@Autowired
+	private QuizUserDetailsService userDetailsService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/info/**").hasAnyRole("ADMIN","USER").
-		and().formLogin();
-	}
-	
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		  auth.inMemoryAuthentication().withUser("email1@gmail.com").password("ram123").roles("ADMIN");
-		  auth.inMemoryAuthentication().withUser("email2@gmail.com").password("ravan123").roles("USER");
-		  auth.inMemoryAuthentication().withUser("email3@gmail.com").password("kans123").roles("VIEW_USER");
+		http.csrf().disable();
+		http.authorizeRequests().anyRequest().authenticated().and().formLogin()
+				.defaultSuccessUrl("/message").permitAll().and().logout().logoutSuccessUrl("/login").permitAll();
 	}
 
-	@Bean
-	public UserDetailsService userDetailsService() {
-		return new QuizUserDetailsService();
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService).passwordEncoder(encodePWD());
+		;
 	}
+
+//	@Autowired
+//	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//		  auth.inMemoryAuthentication().withUser("email1@gmail.com").password("ram123").roles("ADMIN");
+//		  auth.inMemoryAuthentication().withUser("email2@gmail.com").password("ravan123").roles("USER");
+//		  auth.inMemoryAuthentication().withUser("email3@gmail.com").password("kans123").roles("VIEW_USER");
+//	}
 
 	@Bean
 	public BCryptPasswordEncoder encodePWD() {

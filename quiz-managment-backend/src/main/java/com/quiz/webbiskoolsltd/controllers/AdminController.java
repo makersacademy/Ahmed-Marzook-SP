@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.quiz.webbiskoolsltd.pgdb.Users;
-import com.quiz.webbiskoolsltd.repository.IRolesDao;
 import com.quiz.webbiskoolsltd.repository.IUserDao;
 
 
@@ -19,9 +18,6 @@ public class AdminController {
 	
 	@Autowired
 	private IUserDao userDao;
-	
-	@Autowired
-	private IRolesDao rolesDao;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;

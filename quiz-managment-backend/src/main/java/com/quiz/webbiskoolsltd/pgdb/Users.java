@@ -1,17 +1,9 @@
 package com.quiz.webbiskoolsltd.pgdb;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -44,23 +36,12 @@ public class Users implements java.io.Serializable {
 
 	@Column(name = "password", nullable = false)
 	private String password;
-
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "user_authority", joinColumns = { @JoinColumn(name = "user_authority_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "user_id") })
-	private Set<Authority> roles = new HashSet<>();
+	
+	@Column(name = "authority", nullable = false)
+	private String authority;
 
 	public Users() {
 		super();
-	}
-
-	public Users(int userId, String firstName, String lastName, String email, String password) {
-		super();
-		this.userId = userId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.password = password;
 	}
 
 	public Integer getUserId() {
@@ -103,12 +84,12 @@ public class Users implements java.io.Serializable {
 		this.password = password;
 	}
 
-	public Set<Authority> getRoles() {
-		return roles;
+	public String getAuthority() {
+		return authority;
 	}
 
-	public void setRoles(Set<Authority> roles) {
-		this.roles = roles;
+	public void setAuthority(String authority) {
+		this.authority = authority;
 	}
-
+	
 }
