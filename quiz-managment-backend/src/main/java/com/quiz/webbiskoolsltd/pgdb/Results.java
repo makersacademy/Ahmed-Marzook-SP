@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Table(name = "results", schema = "public")
 @Entity()
 public class Results {
@@ -26,10 +28,12 @@ public class Results {
 	@Column(name = "score", nullable = false)
 	private Integer score;
 	
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "quiz_id")
 	private Quiz quiz;
 	
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "users_id")
 	private Users users;

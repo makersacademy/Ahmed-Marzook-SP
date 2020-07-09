@@ -15,6 +15,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.quiz.webbiskoolsltd.pgdb.models.AnswerObject;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 
@@ -39,6 +40,7 @@ public class Questions {
 	@Column(name = "answers")
 	private AnswerObject answers;
 	
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "quiz_id")
 	private Quiz quiz;

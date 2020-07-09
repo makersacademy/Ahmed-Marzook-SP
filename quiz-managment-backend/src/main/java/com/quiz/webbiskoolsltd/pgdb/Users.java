@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Table(name = "users", schema = "public")
 @Entity()
 public class Users implements java.io.Serializable {
@@ -45,6 +47,7 @@ public class Users implements java.io.Serializable {
 	@Column(name = "authority", nullable = false)
 	private String authority;
 	
+	@JsonManagedReference
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
 	private Set<Results> results = new HashSet<>();
 
