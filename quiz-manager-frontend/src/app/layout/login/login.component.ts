@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { JwtClientService } from '../../_service/jwt-client.service';
-import { UsernameAndPasswordModel } from '../../_model/UsernamePassword.model';
+import { AuthenticationService } from '../../_service/authentication.service';
+import { User } from '../../_model/User.model';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -10,26 +11,49 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private authService: JwtClientService, private router: Router) {}
-  authRequest: UsernameAndPasswordModel;
+  loginForm: FormGroup;
+  submitted = false;
+  loading = false;
+  returnUrl: string;
+  error = '';
 
-  loginForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
-  });
+  constructor(
+    private authenticationService: AuthenticationService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
+  authRequest: User;
 
-  login() {
-    const val = this.loginForm.value;
-
-    if (val.email && val.password) {
-      this.authRequest.password = val.password;
-      this.authRequest.userName = val.email;
-
-      this.authService
-        .generateToken(this.authRequest)
-        .subscribe((data) => console.log('Token :' + data));
-    }
+  get f() {
+    return this.loginForm.controls;
   }
 
-  ngOnInit(): void {}
+  login() {
+    this.submitted = true;
+
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    this.authenticationService
+      .login(this.f.username.value, this.f.password.value)
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          this.router.navigate([this.returnUrl]);
+        },
+        (error) => {
+          this.error = error;
+          this.loading = false;
+        }
+      );
+  }
+
+  ngOnInit(): void {
+    this.loginForm = new FormGroup({
+      email: new FormControl(''),
+      password: new FormControl(''),
+    });
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+  }
 }

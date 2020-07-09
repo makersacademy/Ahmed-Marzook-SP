@@ -1,5 +1,6 @@
 package com.quiz.webbiskoolsltd.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,8 @@ public class QuizController {
 	public QuizService quizService;
 	
 	@GetMapping("/allQuiz")
-	public List<Quiz> getAllQuiz() {
+	public List<Quiz> getAllQuiz(Principal auth) {
+		System.out.println(auth.getName() + auth.getClass() + auth.toString());
 		return quizService.getAllQuiz();
 	}
 

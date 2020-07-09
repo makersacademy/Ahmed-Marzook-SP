@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.quiz.webbiskoolsltd.pgdb.models.QuizUser;
 import com.quiz.webbiskoolsltd.services.util.AuthRequest;
 import com.quiz.webbiskoolsltd.services.util.JwtUtil;
 
@@ -27,15 +28,18 @@ public class ApplicationController {
 	}
 
 	@PostMapping("/authenticate")
-	public String genrateToken(@RequestBody AuthRequest authRequest) throws Exception {
+	public QuizUser genrateToken(@RequestBody AuthRequest authRequest) throws Exception {
 		try {
 		authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword()));
+				new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
 		} catch(Exception ex) {
-			throw new UsernameNotFoundException("Invalid username /password");
+			throw new UsernameNotFoundException("Invalid Email /password");
 		}
 		
-		return jwtUtil.generateToken(authRequest.getUserName());
+		QuizUser quizUser = new QuizUser();
+		quizUser.setEmail(authRequest.getEmail());
+		quizUser.setToken(jwtUtil.generateToken(authRequest.getEmail()));
+		return quizUser;
 	}
 
 }
