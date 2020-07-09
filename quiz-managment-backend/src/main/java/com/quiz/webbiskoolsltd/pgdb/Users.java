@@ -1,9 +1,14 @@
 package com.quiz.webbiskoolsltd.pgdb;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -39,6 +44,9 @@ public class Users implements java.io.Serializable {
 	
 	@Column(name = "authority", nullable = false)
 	private String authority;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "quiz")
+	private Set<Questions> questions = new HashSet<>();
 
 	public Users() {
 		super();
@@ -90,6 +98,14 @@ public class Users implements java.io.Serializable {
 
 	public void setAuthority(String authority) {
 		this.authority = authority;
+	}
+
+	public Set<Questions> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(Set<Questions> questions) {
+		this.questions = questions;
 	}
 	
 }

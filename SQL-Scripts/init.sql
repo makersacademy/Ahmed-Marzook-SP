@@ -41,6 +41,7 @@ WITH 4 CACHE 20 OWNED BY questions.question_id;
 CREATE TABLE results
 (
     result_id INTEGER PRIMARY KEY,
+    score INTEGER,
     quiz_id INTEGER REFERENCES quiz(quiz_id) ON DELETE CASCADE,
     users_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE
 );
