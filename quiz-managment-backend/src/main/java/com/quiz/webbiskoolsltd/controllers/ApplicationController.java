@@ -21,6 +21,7 @@ public class ApplicationController {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
+	
 
 	@GetMapping("/")
 	public String process() {
@@ -29,14 +30,15 @@ public class ApplicationController {
 
 	@PostMapping("/authenticate")
 	public QuizUser genrateToken(@RequestBody AuthRequest authRequest) throws Exception {
+		QuizUser quizUser = new QuizUser();
+		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken;
 		try {
-		authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+			usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword());
+		authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+		quizUser.setAuthority(usernamePasswordAuthenticationToken.getAuthorities().toString());
 		} catch(Exception ex) {
 			throw new UsernameNotFoundException("Invalid Email /password");
 		}
-		
-		QuizUser quizUser = new QuizUser();
 		quizUser.setEmail(authRequest.getEmail());
 		quizUser.setToken(jwtUtil.generateToken(authRequest.getEmail()));
 		return quizUser;
