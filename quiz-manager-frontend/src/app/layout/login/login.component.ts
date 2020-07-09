@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../_service/authentication.service';
-import { User } from '../../_model/User.model';
+import { User } from '../../_model/quiz-user.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -22,13 +22,13 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) {}
-  authRequest: User;
 
   get f() {
     return this.loginForm.controls;
   }
 
   login() {
+    console.log('Here I am');
     this.submitted = true;
 
     if (this.loginForm.invalid) {

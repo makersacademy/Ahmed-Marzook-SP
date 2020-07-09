@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { User } from '../_model/User.model';
+import { User } from '../_model/quiz-user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +26,7 @@ export class AuthenticationService {
 
   login(username: string, password: string) {
     return this.http
-      .post<any>('http://quiz_management_backend:8085/authenticate', {
+      .post<any>(`${environment.apiUrl}/authenticate`, {
         username,
         password,
       })
