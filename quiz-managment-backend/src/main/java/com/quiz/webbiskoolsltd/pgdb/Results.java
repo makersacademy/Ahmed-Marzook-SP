@@ -23,7 +23,6 @@ public class Results {
 	@Column(name = "result_id", unique = true, nullable = false)
 	private Integer resultId;
 	
-	
 	@Column(name = "score", nullable = false)
 	private Integer score;
 	
@@ -35,4 +34,39 @@ public class Results {
 	@JoinColumn(name = "users_id")
 	private Users users;
 
+	public Results() {
+		super();
+	}
+
+	public Integer getResultId() {
+		return resultId;
+	}
+
+	public void setResultId(Integer resultId) {
+		this.resultId = resultId;
+	}
+
+	public Integer getScore() {
+		return score;
+	}
+
+	public void setScore(Integer score) {
+		this.score = score;
+	}
+
+	public Quiz getQuiz() {
+		return quiz;
+	}
+
+	public void setQuiz(Quiz quiz) {
+		this.quiz = quiz;
+	}
+
+	public Users getUsers() {
+		return users;
+	}
+
+	public void setUsers(Users users) {
+		this.users = users;
+	}
 }

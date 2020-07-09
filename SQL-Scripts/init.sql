@@ -30,7 +30,7 @@ CREATE TABLE questions
 (
     question_id INTEGER PRIMARY KEY,
     question_title text,
-    answers text[],
+    answers JSONB,
     quiz_id INTEGER REFERENCES quiz(quiz_id) ON DELETE CASCADE
 );
 

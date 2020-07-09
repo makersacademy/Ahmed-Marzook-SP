@@ -33,6 +33,9 @@ public class Quiz {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "quiz")
 	private Set<Questions> questions = new HashSet<>();
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "quiz")
+	private Set<Results> results = new HashSet<>();
 
 	public Quiz() {
 		super();
@@ -60,5 +63,21 @@ public class Quiz {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Set<Questions> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(Set<Questions> questions) {
+		this.questions = questions;
+	}
+
+	public Set<Results> getResults() {
+		return results;
+	}
+
+	public void setResults(Set<Results> results) {
+		this.results = results;
 	}
 }

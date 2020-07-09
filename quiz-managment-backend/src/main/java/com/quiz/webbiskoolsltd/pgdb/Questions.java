@@ -1,7 +1,5 @@
 package com.quiz.webbiskoolsltd.pgdb;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,16 +13,16 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 
-import com.quiz.webbiskoolsltd.pgdb.models.Answer;
-import com.vladmihalcea.hibernate.type.array.ListArrayType;
+import com.quiz.webbiskoolsltd.pgdb.models.AnswerObject;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 
 @Table(name = "questions", schema = "public")
 @Entity
-@TypeDef(
-	    name = "list-array",
-	    typeClass = ListArrayType.class
-	)
+@TypeDefs({
+    @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
+})
 public class Questions {
 	
 	@Id
@@ -37,9 +35,9 @@ public class Questions {
 	@Column(name = "question_title", nullable = false)
 	private String questionTitle;
 	
-	@Type(type ="list-array")
-	@Column(name = "answers", columnDefinition = "text[]")
-	private List<Answer> answers;
+	@Type(type ="jsonb")
+	@Column(name = "answers")
+	private AnswerObject answers;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "quiz_id")
@@ -65,11 +63,11 @@ public class Questions {
 		this.questionTitle = questionTitle;
 	}
 
-	public List<Answer> getAnswers() {
+	public AnswerObject getAnswers() {
 		return answers;
 	}
 
-	public void setAnswers(List<Answer> answers) {
+	public void setAnswers(AnswerObject answers) {
 		this.answers = answers;
 	}
 

@@ -45,8 +45,8 @@ public class Users implements java.io.Serializable {
 	@Column(name = "authority", nullable = false)
 	private String authority;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "quiz")
-	private Set<Questions> questions = new HashSet<>();
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
+	private Set<Results> results = new HashSet<>();
 
 	public Users() {
 		super();
@@ -100,12 +100,12 @@ public class Users implements java.io.Serializable {
 		this.authority = authority;
 	}
 
-	public Set<Questions> getQuestions() {
-		return questions;
+	public Set<Results> getResults() {
+		return results;
 	}
 
-	public void setQuestions(Set<Questions> questions) {
-		this.questions = questions;
+	public void setResults(Set<Results> results) {
+		this.results = results;
 	}
 	
 }
