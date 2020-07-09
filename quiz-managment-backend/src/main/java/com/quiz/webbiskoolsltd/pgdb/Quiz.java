@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Table(name = "quiz", schema = "public")
 @Entity
 public class Quiz {
@@ -31,9 +33,11 @@ public class Quiz {
 	@Column(name = "description", nullable = false)
 	private String description;
 	
+	@JsonManagedReference
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "quiz")
 	private Set<Questions> questions = new HashSet<>();
 	
+	@JsonManagedReference
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "quiz")
 	private Set<Results> results = new HashSet<>();
 
