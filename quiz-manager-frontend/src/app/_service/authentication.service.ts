@@ -24,9 +24,9 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
-  login(email: string, password: string) {
+  login(email: string, password: string): Observable<User> {
     return this.http
-      .post<any>(`${environment.apiUrl}/authenticate`, {
+      .post<User>(`${environment.apiUrl}/authenticate`, {
         email,
         password,
       })

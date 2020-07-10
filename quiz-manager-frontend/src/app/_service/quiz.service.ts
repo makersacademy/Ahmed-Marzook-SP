@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class QuizService {
+  constructor(private http: HttpClient) {}
 
-  constructor() { }
+  getQuizes() {
+    return this.http.get(`${environment.apiUrl}/quiz/allQuiz`);
+  }
 }
