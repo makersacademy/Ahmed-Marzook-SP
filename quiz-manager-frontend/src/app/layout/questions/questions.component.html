@@ -5,47 +5,49 @@
       <p>{{ quiz.description }}</p>
     </div>
   </div>
-
-  <div class="row">
-    <div class="col-sm" *ngFor="let question of questions; index as i">
-      <h2>{{ i + 1 }} ) {{ question.questionTitle }}</h2>
-      <div class="form-check">
-        <label class="form-check-label">
-          <input type="checkbox" class="form-check-input" value="" />{{
-            question.answers[0].answerTitle
-          }}
-        </label>
+  <form [formGroup]="quizForm">
+    <div class="row mb-2" *ngFor="let question of questions; index as i">
+      <div class="col-sm">
+        <h4>{{ i + 1 }} ) {{ question.questionTitle }}</h4>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="checkbox" class="form-check-input" value="" />{{
+              question.answers[0].answerTitle
+            }}
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="checkbox" class="form-check-input" value="" />{{
+              question.answers[1].answerTitle
+            }}
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="checkbox" class="form-check-input" value="" />{{
+              question.answers[2].answerTitle
+            }}
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="checkbox" class="form-check-input" value="" />{{
+              question.answers[3].answerTitle
+            }}
+          </label>
+        </div>
       </div>
-      <div class="form-check">
-        <label class="form-check-label">
-          <input type="checkbox" class="form-check-input" value="" />{{
-            question.answers[1].answerTitle
-          }}
-        </label>
-      </div>
-      <div class="form-check">
-        <label class="form-check-label">
-          <input type="checkbox" class="form-check-input" value="" />{{
-            question.answers[2].answerTitle
-          }}
-        </label>
-      </div>
-      <div class="form-check">
-        <label class="form-check-label">
-          <input type="checkbox" class="form-check-input" value="" />{{
-            question.answers[3].answerTitle
-          }}
-        </label>
+      <div class="col-sm">
+        <button
+          type="button"
+          class="btn btn-primary"
+          *ngIf="currentUser.authority === 'ROLE_VIEW_USER' || 'ROLE_ADMIN'"
+        >
+          Show Answer
+        </button>
       </div>
     </div>
-    <div class="col-sm">
-      <button
-        type="button"
-        class="btn btn-primary"
-        *ngIf="currentUser.authority === 'ROLE_VIEW_USER' || 'ROLE_ADMIN'"
-      >
-        Show Answer
-      </button>
-    </div>
-  </div>
+    <button type="submit" class="btn btn-success mb-3">Submit</button>
+  </form>
 </div>

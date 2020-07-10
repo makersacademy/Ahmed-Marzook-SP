@@ -94,3 +94,47 @@ VALUES
       "answerTitle":"3 Million",
       "correct":false
    }]', 1);
+
+INSERT INTO public.questions
+  (question_id, question_title, answers, quiz_id)
+VALUES
+  (2, 'The City of London building 20 Fenchurch Street is better known by which nickname?', '[
+  {
+    "answerTitle": "Shard",
+    "correct": false
+  },
+  {
+    "answerTitle": "Gherkin",
+    "correct": false
+  },
+  {
+    "answerTitle": "The Walkie Talkie",
+    "correct": true
+  },
+  {
+    "answerTitle": "Fenchurch Tower",
+    "correct": false
+  }
+]', 1);
+
+INSERT INTO public.questions
+  (question_id, question_title, answers, quiz_id)
+VALUES
+  (3, 'In which London neighbourhood can you find ‘Little Portugal’?', '[
+  {
+    "answerTitle": "Wellington",
+    "correct": false
+  },
+  {
+    "answerTitle": "Stockwell",
+    "correct": true
+  },
+  {
+    "answerTitle": "Harrow",
+    "correct": false
+  },
+  {
+    "answerTitle": "Waterloo",
+    "correct": false
+  }
+]', 1);
