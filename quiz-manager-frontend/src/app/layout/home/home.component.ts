@@ -3,6 +3,7 @@ import { QuizService } from '../../_service/quiz.service';
 import { User } from '../../_model/quiz-user.model';
 import { Quiz } from '../../_model/quiz.model';
 import { AuthenticationService } from '../../_service/authentication.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',

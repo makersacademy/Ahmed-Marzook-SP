@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './layout/home/home.component';
 import { JwtInterceptor } from './_helper/jwt.interceptor';
 import { ErrorInterceptor } from './_helper/error.interceptor';
+import { QuestionsComponent } from './layout/questions/questions.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ErrorInterceptor } from './_helper/error.interceptor';
     LoginComponent,
     DashboardComponent,
     HomeComponent,
+    QuestionsComponent,
   ],
   imports: [
     BrowserModule,
