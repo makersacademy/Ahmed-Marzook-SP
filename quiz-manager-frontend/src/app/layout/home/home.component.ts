@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { QuizService } from '../../_service/quiz.service';
+import { User } from '../../_model/quiz-user.model';
+import { Quiz } from '../../_model/quiz.model';
+import { AuthenticationService } from '../../_service/authentication.service';
 
 @Component({
   selector: 'app-home',
@@ -7,8 +10,17 @@ import { QuizService } from '../../_service/quiz.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private quizService: QuizService) {}
-  quizList: any;
+  currentUser: User;
+  quizList: Quiz[];
+
+  constructor(
+    private quizService: QuizService,
+    private authenticationService: AuthenticationService
+  ) {
+    this.authenticationService.currentUser.subscribe(
+      (x) => (this.currentUser = x)
+    );
+  }
 
   ngOnInit(): void {
     this.quizService.getQuizes().subscribe((data) => (this.quizList = data));

@@ -2,7 +2,7 @@ package com.quiz.webbiskoolsltd.pgdb.models;
 
 public class QuizUser {
 	
-	private String userId;
+	private Integer userId;
 	
 	private String firstName;
 	
@@ -18,7 +18,7 @@ public class QuizUser {
 		super();
 	}
 
-	public QuizUser(String userId, String firstName, String lastName, String email, String authority, String token) {
+	public QuizUser(Integer userId, String firstName, String lastName, String email, String authority, String token) {
 		super();
 		this.userId = userId;
 		this.firstName = firstName;
@@ -28,12 +28,12 @@ public class QuizUser {
 		this.token = token;
 	}
 
-	public String getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserId(Integer integer) {
+		this.userId = integer;
 	}
 
 	public String getFirstName() {
