@@ -35,7 +35,7 @@ export class QuestionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let group = {};
+    const group = {};
     this.questions = this.route.snapshot.data.ques;
 
     const quizlist: Quiz[] = JSON.parse(localStorage.getItem('quizList'));
@@ -50,4 +50,6 @@ export class QuestionsComponent implements OnInit {
     });
     this.quizForm = new FormGroup(group);
   }
+
+  onSubmit(): void {}
 }

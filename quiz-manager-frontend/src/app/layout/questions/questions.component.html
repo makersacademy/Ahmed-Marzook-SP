@@ -5,7 +5,7 @@
       <p>{{ quiz.description }}</p>
     </div>
   </div>
-  <form [formGroup]="quizForm">
+  <form [formGroup]="quizForm" (ngSubmit)="onSubmit()">
     <div class="row mb-2" *ngFor="let question of questions; index as i">
       <div class="col-sm">
         <h4>{{ i + 1 }} ) {{ question.questionTitle }}</h4>
