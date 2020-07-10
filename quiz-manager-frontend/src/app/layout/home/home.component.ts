@@ -24,6 +24,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.quizService.getQuizes().subscribe((data) => (this.quizList = data));
+    this.quizService.getQuizes().subscribe((data) => {
+      this.quizList = data;
+      localStorage.setItem('quizList', JSON.stringify(this.quizList));
+    });
   }
 }

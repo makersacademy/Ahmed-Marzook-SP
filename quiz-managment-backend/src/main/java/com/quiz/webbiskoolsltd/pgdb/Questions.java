@@ -1,5 +1,7 @@
 package com.quiz.webbiskoolsltd.pgdb;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,7 +18,7 @@ import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.quiz.webbiskoolsltd.pgdb.models.AnswerObject;
+import com.quiz.webbiskoolsltd.pgdb.models.Answer;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 
 @Table(name = "questions", schema = "public")
@@ -38,7 +40,7 @@ public class Questions {
 	
 	@Type(type ="jsonb")
 	@Column(name = "answers")
-	private AnswerObject answers;
+	private List<Answer> answers;
 	
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -65,11 +67,11 @@ public class Questions {
 		this.questionTitle = questionTitle;
 	}
 
-	public AnswerObject getAnswers() {
+	public List<Answer> getAnswers() {
 		return answers;
 	}
 
-	public void setAnswers(AnswerObject answers) {
+	public void setAnswers(List<Answer> answers) {
 		this.answers = answers;
 	}
 

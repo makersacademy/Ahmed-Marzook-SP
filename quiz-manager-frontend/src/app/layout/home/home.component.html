@@ -23,7 +23,12 @@
       <button
         type="button"
         class="btn btn-primary mr-2"
-        [routerLink]="['/questions', { id: quiz.quizId }]"
+        [routerLink]="[
+          '/questions',
+          {
+            id: quiz.quizId
+          }
+        ]"
       >
         Select
       </button>
