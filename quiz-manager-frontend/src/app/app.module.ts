@@ -13,6 +13,8 @@ import { HomeComponent } from './layout/home/home.component';
 import { JwtInterceptor } from './_helper/jwt.interceptor';
 import { ErrorInterceptor } from './_helper/error.interceptor';
 import { QuestionsComponent } from './layout/questions/questions.component';
+import { AddNewQuizComponent } from './layout/add-new-quiz/add-new-quiz.component';
+import { AddNewQuestionComponent } from './layout/add-new-question/add-new-question.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { QuestionsComponent } from './layout/questions/questions.component';
     DashboardComponent,
     HomeComponent,
     QuestionsComponent,
+    AddNewQuizComponent,
+    AddNewQuestionComponent,
   ],
   imports: [
     BrowserModule,

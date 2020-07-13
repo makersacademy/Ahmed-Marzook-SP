@@ -47,13 +47,6 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
 		return super.authenticationManagerBean();
 	}
 
-//	@Autowired
-//	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//		  auth.inMemoryAuthentication().withUser("email1@gmail.com").password("ram123").roles("ADMIN");
-//		  auth.inMemoryAuthentication().withUser("email2@gmail.com").password("ravan123").roles("USER");
-//		  auth.inMemoryAuthentication().withUser("email3@gmail.com").password("kans123").roles("VIEW_USER");
-//	}
-
 	@Bean
 	public BCryptPasswordEncoder encodePWD() {
 		return new BCryptPasswordEncoder();

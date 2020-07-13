@@ -1,0 +1,34 @@
+<h1>Add New Quiz</h1>
+<form [formGroup]="quizForm">
+  <label for="questionTitle">Quiz Title</label>
+  <input
+    class="form-control"
+    type="text"
+    id="questionTitle"
+    formControlName="quizTitle"
+  />
+
+  <label for="quizDescription">Quiz Description</label>
+  <div class="form-group">
+    <textarea
+      class="form-control"
+      id="quizDescription"
+      rows="3"
+      formControlName="quizDescription"
+    ></textarea>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <button type="button" class="btn btn-danger" [routerLink]="['/']">
+          Cancel
+        </button>
+      </div>
+      <div class="col-sm">
+        <button type="button" class="btn btn-success" (click)="onSubmit()">
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

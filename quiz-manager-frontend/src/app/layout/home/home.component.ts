@@ -16,7 +16,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private quizService: QuizService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private router: Router
   ) {
     this.authenticationService.currentUser.subscribe(
       (x) => (this.currentUser = x)
@@ -28,5 +29,10 @@ export class HomeComponent implements OnInit {
       this.quizList = data;
       localStorage.setItem('quizList', JSON.stringify(this.quizList));
     });
+  }
+
+  deleteQuiz(id) {
+    this.quizService.deleteQuiz(id);
+    window.location.reload();
   }
 }

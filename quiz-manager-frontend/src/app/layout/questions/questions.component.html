@@ -4,40 +4,32 @@
       <h1>{{ quiz.title }}</h1>
       <p>{{ quiz.description }}</p>
     </div>
+    <div class="col-sm">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        [routerLink]="['/questions/add']"
+      >
+        Add Question
+      </button>
+    </div>
   </div>
-  <form [formGroup]="quizForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="quizForm" (ngSubmit)="onSubmit()" *ngIf="quizForm">
     <div class="row mb-2" *ngFor="let question of questions; index as i">
-      <div class="col-sm">
+      <!--Form Checkbox Start-->
+      <div class="col-sm" [formGroup]="question.questionTitle">
         <h4>{{ i + 1 }} ) {{ question.questionTitle }}</h4>
-        <div class="form-check">
+        <div class="form-check" *ngFor="let answer of question?.answers">
           <label class="form-check-label">
-            <input type="checkbox" class="form-check-input" value="" />{{
-              question.answers[0].answerTitle
-            }}
-          </label>
-        </div>
-        <div class="form-check">
-          <label class="form-check-label">
-            <input type="checkbox" class="form-check-input" value="" />{{
-              question.answers[1].answerTitle
-            }}
-          </label>
-        </div>
-        <div class="form-check">
-          <label class="form-check-label">
-            <input type="checkbox" class="form-check-input" value="" />{{
-              question.answers[2].answerTitle
-            }}
-          </label>
-        </div>
-        <div class="form-check">
-          <label class="form-check-label">
-            <input type="checkbox" class="form-check-input" value="" />{{
-              question.answers[3].answerTitle
-            }}
+            <input
+              type="checkbox"
+              class="form-check-input"
+              formControlName="answer.answerTitle"
+            />{{ answer.answerTitle }}
           </label>
         </div>
       </div>
+      <!--Form Checkbox end-->
       <div class="col-sm">
         <button
           type="button"
@@ -51,3 +43,4 @@
     <button type="submit" class="btn btn-success mb-3">Submit</button>
   </form>
 </div>
+{{ quizForm.value | json }}

@@ -4,11 +4,14 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.quiz.webbiskoolsltd.pgdb.Quiz;
@@ -31,6 +34,13 @@ public class QuizController {
 	@PostMapping("/addQuiz")
 	public void addQuiz(@RequestBody Quiz quiz,Principal auth) {
 		quizService.addQuiz(quiz);
+	}
+	
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	@GetMapping("/delete-quiz")
+	public ResponseEntity<Object> deleteQuiz(@RequestParam Integer id,Principal auth) {
+		quizService.deleteQuiz(id);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 }

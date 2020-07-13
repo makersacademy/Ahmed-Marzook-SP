@@ -1,0 +1,80 @@
+<h1>Quiz 1</h1>
+<form [formGroup]="addQuestionForm" (ngSubmit)="onSubmit()">
+  <input
+    class="form-control mb-3"
+    type="text"
+    placeholder="Default input"
+    formControlName="questionTitle"
+  />
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <div class="input-group-text">
+        <input
+          type="checkbox"
+          aria-label="Checkbox for answerOne"
+          formControlName="answerOneCorrect"
+        />
+      </div>
+    </div>
+    <input
+      type="text"
+      class="form-control"
+      aria-label="Text input for answerOne"
+      formControlName="answerOne"
+    />
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <div class="input-group-text">
+        <input
+          type="checkbox"
+          aria-label="Checkbox for answerTwo"
+          formControlName="answerTwoCorrect"
+        />
+      </div>
+    </div>
+    <input
+      type="text"
+      class="form-control"
+      aria-label="Text input for answerTwo"
+      formControlName="answerTwo"
+    />
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <div class="input-group-text">
+        <input
+          type="checkbox"
+          aria-label="Checkbox for answerThree"
+          formControlName="answerThreeCorrect"
+        />
+      </div>
+    </div>
+    <input
+      type="text"
+      class="form-control"
+      aria-label="Text input for answerThree"
+      formControlName="answerThree"
+    />
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <div class="input-group-text">
+        <input
+          type="checkbox"
+          aria-label="Checkbox for answerFour"
+          formControlName="answerFourCorrect"
+        />
+      </div>
+    </div>
+    <input
+      type="text"
+      class="form-control"
+      aria-label="Text input for answerFour"
+      formControlName="answerFour"
+    />
+  </div>
+  <button type="submit" class="btn btn-success">
+    Add Question to Quiz
+  </button>
+</form>

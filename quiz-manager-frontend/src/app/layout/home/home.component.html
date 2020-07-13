@@ -9,6 +9,7 @@
           type="button"
           class="btn btn-secondary"
           *ngIf="currentUser.authority === 'ROLE_ADMIN'"
+          [routerLink]="['/quiz']"
         >
           Add Quiz
         </button>
@@ -36,6 +37,7 @@
         type="button"
         class="btn btn-danger"
         *ngIf="currentUser.authority === 'ROLE_ADMIN'"
+        (click)="deleteQuiz(quiz.quizId)"
       >
         Delete
       </button>

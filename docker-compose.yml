@@ -1,44 +1,40 @@
-version: '3.5'
+version: "3.5"
 services: #Defineing Services
   web: # Angular Frontend
     build: ./quiz-manager-frontend/
-    volumes: # Volume binding
-        - './quiz-manager-frontend:/usr/src/app'
     container_name: quiz_management_frontend
     ports:
-        - 4200:4200
-    command: > 
-        bash -c "npm install && ng serve --host 0.0.0.0 --port 4200"
+      - 80:80
     depends_on:
-        - "app"
+      - "app"
     networks:
-        - quiz_app_network
+      - quiz_app_network
   app: # Java Springboot Backend
     build: ./quiz-managment-backend/
     container_name: quiz_management_backend
     ports:
-        - 8085:8085
+      - 8085:8085
     depends_on:
-        - "db"
+      - "db"
     networks:
-        - quiz_db_network
-        - quiz_app_network
+      - quiz_db_network
+      - quiz_app_network
   db: # PostgreSQL Database
     image: postgres:alpine
     container_name: quiz_management_db
-    environment: 
-        POSTGRES_USER: 'unicorn_user'
-        POSTGRES_PASSWORD: 'magical_password'
-        POSTGRES_DB: 'quiz_management_db'
+    environment:
+      POSTGRES_USER: "unicorn_user"
+      POSTGRES_PASSWORD: "magical_password"
+      POSTGRES_DB: "quiz_management_db"
     volumes:
-        - db-data:/var/lib/postgresql/data
-        - ./SQL-Scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - db-data:/var/lib/postgresql/data
+      - ./SQL-Scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-        - 5433:5432
+      - 5433:5432
     networks:
-        - quiz_db_network
+      - quiz_db_network
 volumes:
-    db-data:
+  db-data:
 networks:
-   quiz_db_network:
-   quiz_app_network:
+  quiz_db_network:
+  quiz_app_network:
