@@ -6,6 +6,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { QuestionsService } from 'src/app/_service/questions.service';
 import { Answer } from 'src/app/_model/answer.model';
 import { Question } from 'src/app/_model/question.model';
+import { Quiz } from 'src/app/_model/quiz.model';
 
 @Component({
   selector: 'app-add-new-question',
@@ -14,6 +15,7 @@ import { Question } from 'src/app/_model/question.model';
 })
 export class AddNewQuestionComponent implements OnInit {
   addQuestionForm: FormGroup;
+  quiz: Quiz;
   constructor(
     private authenticationService: AuthenticationService,
     private route: ActivatedRoute,
@@ -26,6 +28,11 @@ export class AddNewQuestionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const quizlist: Quiz[] = JSON.parse(localStorage.getItem('quizList'));
+    this.quiz = quizlist.find(
+      (data) => data.quizId === +this.route.snapshot.paramMap.get('id')
+    );
+
     this.addQuestionForm = new FormGroup({
       questionTitle: new FormControl('', Validators.required),
       answerOne: new FormControl('', Validators.required),
@@ -60,7 +67,7 @@ export class AddNewQuestionComponent implements OnInit {
     answerFour.correct = this.f.answerFourCorrect.value;
     answersArray = [answerOne, answerTwo, answerThree, answerFour];
     question.answers = answersArray;
-
+    question.quizId = this.quiz.quizId;
     console.log(question);
   }
 }

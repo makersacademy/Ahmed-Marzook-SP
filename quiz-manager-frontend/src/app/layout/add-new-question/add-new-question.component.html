@@ -1,9 +1,9 @@
-<h1>Quiz 1</h1>
+<h1>{{ quiz.title }}</h1>
 <form [formGroup]="addQuestionForm" (ngSubmit)="onSubmit()">
   <input
     class="form-control mb-3"
     type="text"
-    placeholder="Default input"
+    placeholder="Quiz Title"
     formControlName="questionTitle"
   />
   <div class="input-group mb-3">
@@ -20,6 +20,7 @@
       type="text"
       class="form-control"
       aria-label="Text input for answerOne"
+      placeholder="Answer One"
       formControlName="answerOne"
     />
   </div>
@@ -37,6 +38,7 @@
       type="text"
       class="form-control"
       aria-label="Text input for answerTwo"
+      placeholder="Answer Two"
       formControlName="answerTwo"
     />
   </div>
@@ -54,6 +56,7 @@
       type="text"
       class="form-control"
       aria-label="Text input for answerThree"
+      placeholder="Answer Three"
       formControlName="answerThree"
     />
   </div>
@@ -71,6 +74,7 @@
       type="text"
       class="form-control"
       aria-label="Text input for answerFour"
+      placeholder="Answer Four"
       formControlName="answerFour"
     />
   </div>

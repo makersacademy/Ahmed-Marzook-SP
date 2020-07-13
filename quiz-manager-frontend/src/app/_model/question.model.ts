@@ -4,4 +4,5 @@ export class Question {
   questionId: number;
   questionTitle: string;
   answers: Answer[];
+  quizId: number;
 }

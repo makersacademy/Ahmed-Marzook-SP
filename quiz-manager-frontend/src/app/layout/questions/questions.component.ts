@@ -23,7 +23,6 @@ export class QuestionsComponent implements OnInit {
   questions: Question[];
   currentUser: User;
   quizForm: FormGroup;
-  quizFormArray: FormArray;
   submitted = false;
 
   constructor(
